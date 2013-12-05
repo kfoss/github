@@ -12,7 +12,7 @@
   var XMLHttpRequest, Base64, _;
   if (typeof exports !== 'undefined') {
       XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-      _ = require('underscore');
+      _ = require('./lib/underscore-min.js');
       Base64 = require('./lib/base64.js');
   }else{
       _ = window._;
@@ -59,7 +59,7 @@
       if ((options.token) || (options.username && options.password)) {
            xhr.setRequestHeader('Authorization', options.token
              ? 'token '+ options.token
-             : 'Basic ' + Base64.encode(options.username + ':' + options.password)
+             : 'Basic ' + btoa(options.username + ':' + options.password)
            );
          }
       data ? xhr.send(JSON.stringify(data)) : xhr.send();
@@ -748,7 +748,7 @@
 
   if (typeof exports !== 'undefined') {
     // Github = exports;
-    module.exports = Github;
+    exports.Github = Github;
   } else {
     window.Github = Github;
   }
